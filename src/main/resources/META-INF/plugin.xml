@@ -1,6 +1,6 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.serzhby.tools.plugins.boundary</id>
+    <id>com.github.serzhby.tools.plugins.doorman</id>
     <name>jb-boundary</name>
     <vendor>serzhby</vendor>
 
@@ -11,19 +11,19 @@
     <actions>
 
         <action id="Boundary.RefreshItemsAction"
-                class="com.github.serzhby.tools.plugins.boundary.actions.RefreshItemsAction"
+                class="com.github.serzhby.tools.plugins.doorman.actions.RefreshItemsAction"
                 text="Refresh Items"
                 description="Refresh the items in the Boundary tool window">
         </action>
 
         <action id="Boundary.AddHostAction"
-                class="com.github.serzhby.tools.plugins.boundary.actions.AddHostAction"
+                class="com.github.serzhby.tools.plugins.doorman.actions.AddHostAction"
                 text="Add a Host"
                 description="Add a boundary host">
         </action>
 
         <action id="Boundary.Authorize"
-                class="com.github.serzhby.tools.plugins.boundary.actions.AuthorizeAction"
+                class="com.github.serzhby.tools.plugins.doorman.actions.AuthorizeAction"
                 text="Authorize"
                 description="Authorize on a host">
         </action>
@@ -32,33 +32,33 @@
         <group id="BoundaryTree.Popup" popup="true" compact="true">
 
             <action id="Boundary.CreateDataSourceAction"
-                    class="com.github.serzhby.tools.plugins.boundary.actions.CreateDataSourceAction"
+                    class="com.github.serzhby.tools.plugins.doorman.actions.CreateDataSourceAction"
                     text="Create Data Source"
                     description="Create a data source for the Boundary host">
             </action>
 
             <action id="BoundaryTree.TargetPopup.CloseSession"
-                    class="com.github.serzhby.tools.plugins.boundary.actions.CloseSessionAction"
+                    class="com.github.serzhby.tools.plugins.doorman.actions.CloseSessionAction"
                     text="Close"/>
 
             <action id="BoundaryTree.TargetPopup.DeleteHost"
-                    class="com.github.serzhby.tools.plugins.boundary.actions.DeleteHostAction"
+                    class="com.github.serzhby.tools.plugins.doorman.actions.DeleteHostAction"
                     text="Delete Host"/>
 
             <action id="BoundaryTree.TargetPopup.Authorize"
-                    class="com.github.serzhby.tools.plugins.boundary.actions.AuthorizeAction"
+                    class="com.github.serzhby.tools.plugins.doorman.actions.AuthorizeAction"
                     text="Authorize"/>
 
         </group>
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.serzhby.tools.plugins.boundary.ui.toolwindow.BoundaryToolWindowFactory"
+        <toolWindow factoryClass="com.github.serzhby.tools.plugins.doorman.ui.toolwindow.BoundaryToolWindowFactory"
                     icon="icons/boundary.svg"
                     text="Boundary"
                     id="BoundaryToolWindow"/>
         <applicationService
-                serviceImplementation="com.github.serzhby.tools.plugins.boundary.services.BoundarySettings"/>
+                serviceImplementation="com.github.serzhby.tools.plugins.doorman.services.BoundarySettings"/>
     </extensions>
 </idea-plugin>
 
