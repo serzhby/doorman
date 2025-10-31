@@ -1,4 +1,4 @@
-# jetbrains-boundary
+# doorman-boundary
 
 ![Build](https://github.com/serzhby/jb-boundary/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
@@ -25,7 +25,7 @@ A plugin for Jetbrains IDEs that provides support for the [Boundary](https://www
 
 - Using the IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "jetbrains-boundary"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "doorman-boundary"</kbd> >
   <kbd>Install</kbd>
   
 - Using JetBrains Marketplace:
@@ -37,7 +37,7 @@ A plugin for Jetbrains IDEs that provides support for the [Boundary](https://www
 
 - Manually:
 
-  Download the [latest release](https://github.com/serzhby/jetbrains-boundary/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/serzhby/doorman-boundary/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 

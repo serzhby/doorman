@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# jetbrains-boundary Changelog
+# doorman-boundary Changelog
 
 ## [Unreleased]
 ### Added

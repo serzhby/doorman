@@ -25,11 +25,13 @@ class BoundaryService {
 
   private val tokenStore = InMemoryTokenStore.instance
 
+  private val executableCommand = "boundary"
+
   fun authenticate(host: Host, authMethod: AuthMethod) {
     if (authMethod.type == "oidc") {
       val format = if (host.keyringType.type == KeyringType.NONE.type) "json" else "table"
       val command = listOf(
-        "boundary", "authenticate", authMethod.type,
+        executableCommand, "authenticate", authMethod.type,
         "-auth-method-id", authMethod.id,
         "-format", format,
         "-keyring-type", host.keyringType.type,
@@ -55,7 +57,7 @@ class BoundaryService {
 
   fun listResources(host: Host): ListTargetResult {
     val command = listOfNotNull(
-      "boundary", "targets", "list",
+      executableCommand, "targets", "list",
       "-recursive",
       "-format", "json",
       "-keyring-type", host.keyringType.type,
@@ -66,7 +68,7 @@ class BoundaryService {
 
   fun listSessions(host: Host): ListSessionsResult {
     val command = listOf(
-      "boundary", "sessions", "list", "-recursive",
+      executableCommand, "sessions", "list", "-recursive",
       "-format", "json",
       "-filter", "item.status==\"active\"",
       "-keyring-type", host.keyringType.type,
@@ -77,7 +79,7 @@ class BoundaryService {
 
   fun closeSession(host: Host, session: Session): CloseSessionResult {
     val command = listOf(
-      "boundary", "sessions", "cancel",
+      executableCommand, "sessions", "cancel",
       "-id", session.id,
       "-format", "json",
       "-keyring-type", host.keyringType.type,
@@ -88,7 +90,7 @@ class BoundaryService {
 
   fun listAuthMethods(host: Host): ListAuthMethodsResult {
     val command = listOf(
-      "boundary", "auth-methods", "list", "-recursive",
+      executableCommand, "auth-methods", "list", "-recursive",
       "-format", "json",
       "-keyring-type", "none",
       "-addr", host.url
@@ -98,7 +100,7 @@ class BoundaryService {
 
   fun createConnection(host: Host, target: BoundaryTarget): ConnectionResponse? {
     val command = listOf(
-      "boundary", "connect", target.id,
+      executableCommand, "connect", target.id,
       "-format", "json",
       "-keyring-type", host.keyringType.type,
       "-addr", host.url

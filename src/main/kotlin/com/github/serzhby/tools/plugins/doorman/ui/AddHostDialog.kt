@@ -3,12 +3,19 @@ package com.github.serzhby.tools.plugins.doorman.ui
 import com.github.serzhby.tools.plugins.doorman.BoundaryBundle
 import com.github.serzhby.tools.plugins.doorman.model.KeyringType
 import com.github.serzhby.tools.plugins.doorman.model.Platform
+import com.intellij.icons.AllIcons
+import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.ui.ValidationInfo
+import java.awt.Cursor
+import java.awt.Desktop
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.Insets
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
+import java.net.URI
 import javax.swing.JComboBox
 import javax.swing.JComponent
 import javax.swing.JLabel
@@ -64,6 +71,32 @@ class AddHostDialog(project: Project) : DialogWrapper(project) {
 
     gbc.gridx = 1; gbc.weightx = 1.0
     panel.add(keyringTypeBox, gbc)
+
+    gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0.0
+    panel.add(JLabel(""), gbc)
+
+    gbc.gridx = 1; gbc.weightx = 1.0
+    val moreInfoUrl = BoundaryBundle.message("addHostDialog.moreInfoUrl")
+    val moreInfoLabelText = BoundaryBundle.message("addHostDialog.moreInfoLabel")
+    val moreInfoLabel = JLabel("<html><a href=\"$moreInfoUrl\">$moreInfoLabelText</a></html>").apply {
+      icon = AllIcons.General.Information
+      horizontalAlignment = JLabel.LEFT
+      toolTipText = moreInfoUrl
+      cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
+
+      addMouseListener(object : MouseAdapter() {
+        override fun mouseClicked(e: MouseEvent) {
+          try {
+            BrowserUtil.browse(moreInfoUrl)
+          } catch (t: Throwable) {
+            if (Desktop.isDesktopSupported()) {
+              Desktop.getDesktop().browse(URI(moreInfoUrl))
+            }
+          }
+        }
+      })
+    }
+    panel.add(moreInfoLabel, gbc)
 
     return panel
   }

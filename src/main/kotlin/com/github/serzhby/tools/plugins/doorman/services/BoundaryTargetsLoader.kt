@@ -3,6 +3,9 @@ package com.github.serzhby.tools.plugins.doorman.services
 import com.github.serzhby.tools.plugins.doorman.BoundaryBundle
 import com.github.serzhby.tools.plugins.doorman.model.HostModel
 import com.github.serzhby.tools.plugins.doorman.ui.toolwindow.BoundaryToolWindowFactory
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.EDT
 import com.intellij.openapi.components.Service
@@ -29,6 +32,28 @@ class BoundaryTargetsLoader(
   }
 
   fun loadTree() = cs.launch {
+    try {
+      loadTreeInternal()
+    } catch(e: Exception) {
+      showError(project, e)
+    }
+  }
+
+  private fun showError(
+    project: Project,
+    e: Exception
+  ) {
+    Notifications.Bus.notify(
+      Notification(
+        "Boundary",
+        BoundaryBundle.message("boundaryToolWindow.listResourcesErrorTitle"),
+        e.message ?: BoundaryBundle.message("boundaryToolWindow.listResourcesErrorTitle"),
+        NotificationType.ERROR
+      ),
+      project
+    )
+  }
+  private suspend fun loadTreeInternal() {
     withBackgroundProgress(project, BoundaryBundle.message("loadingResources")) {
       val hosts = BoundarySettings.getInstance().state.hosts
       withContext(Dispatchers.EDT) {
