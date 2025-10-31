@@ -24,8 +24,8 @@
 
         <action id="Boundary.Authorize"
                 class="com.github.serzhby.tools.plugins.doorman.actions.AuthorizeAction"
-                text="Authorize"
-                description="Authorize on a host">
+                text="Authenticate"
+                description="Authenticate">
         </action>
 
 
@@ -47,7 +47,7 @@
 
             <action id="BoundaryTree.TargetPopup.Authorize"
                     class="com.github.serzhby.tools.plugins.doorman.actions.AuthorizeAction"
-                    text="Authorize"/>
+                    text="Authenticate"/>
 
         </group>
     </actions>
