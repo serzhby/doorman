@@ -1,4 +1,4 @@
-# doorman-boundary
+# Doorman for HashiCorp Boundary
 
 <!-- Plugin description -->
 Seamlessly integrate [HashiCorp Boundary™](https://www.boundary.com/) with JetBrains IDEs. This plugin allows you to easily create and manage data sources from Boundary targets, enabling secure, just-in-time access to databases directly within your development environment.
