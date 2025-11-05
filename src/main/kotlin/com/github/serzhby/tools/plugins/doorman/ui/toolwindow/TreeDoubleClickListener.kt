@@ -17,9 +17,7 @@ class TreeDoubleClickListener(
   private lateinit var tree: Tree
 
   override fun installOn(c: Component) {
-    if (c !is Tree) {
-      throw IllegalArgumentException("Component must be a Tree")
-    }
+    require(c is Tree) { "Component must be a Tree" }
     this.tree = c
     super.installOn(c)
   }
