@@ -25,7 +25,8 @@ class BoundaryService {
 
   private val tokenStore = InMemoryTokenStore.instance
 
-  private val executableCommand = "boundary"
+  private val executableCommand: String
+    get() = BoundarySettings.getInstance().getBoundaryExecutable()
 
   fun authenticate(host: Host, authMethod: AuthMethod) {
     if (authMethod.type == "oidc") {

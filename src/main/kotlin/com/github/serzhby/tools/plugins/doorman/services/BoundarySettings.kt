@@ -20,15 +20,22 @@ class BoundarySettings : PersistentStateComponent<BoundaryState> {
     this.state = state
   }
 
+  fun getBoundaryExecutable(): String = state.boundaryExecutable
+
+  fun setBoundaryExecutable(value: String) {
+    state.boundaryExecutable = value
+  }
+
   companion object {
     fun getInstance(): BoundarySettings = service()
   }
 }
 
 data class BoundaryState(
-  var hosts: List<Host> = emptyList()
+  var hosts: List<Host> = emptyList(),
+  var boundaryExecutable: String = "boundary"
 ) {
-  constructor(): this(emptyList())
+  constructor(): this(emptyList(), "boundary")
 }
 
 data class Host(

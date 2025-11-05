@@ -59,6 +59,9 @@
                     id="BoundaryToolWindow"/>
         <applicationService
                 serviceImplementation="com.github.serzhby.tools.plugins.doorman.services.BoundarySettings"/>
+        <applicationConfigurable id="com.github.serzhby.tools.plugins.doorman.settings"
+                                  instance="com.github.serzhby.tools.plugins.doorman.ui.BoundarySettingsConfigurable"
+                                  displayName="Boundary"/>
     </extensions>
 </idea-plugin>
 
