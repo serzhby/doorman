@@ -1,6 +1,6 @@
 package com.github.serzhby.tools.plugins.doorman.ui.toolwindow
 
-import com.github.serzhby.tools.plugins.doorman.model.BoundaryTarget
+import com.github.serzhby.tools.plugins.doorman.boundary.BoundaryTarget
 import com.github.serzhby.tools.plugins.doorman.services.Host
 import com.intellij.openapi.ui.addKeyboardAction
 import com.intellij.ui.treeStructure.Tree

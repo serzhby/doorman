@@ -1,8 +1,8 @@
 package com.github.serzhby.tools.plugins.doorman.actions
 
 import com.github.serzhby.tools.plugins.doorman.BoundaryBundle
-import com.github.serzhby.tools.plugins.doorman.model.CloseSessionResult
-import com.github.serzhby.tools.plugins.doorman.model.Session
+import com.github.serzhby.tools.plugins.doorman.boundary.CloseSessionResult
+import com.github.serzhby.tools.plugins.doorman.boundary.Session
 import com.github.serzhby.tools.plugins.doorman.services.BoundaryService
 import com.github.serzhby.tools.plugins.doorman.services.Host
 import com.github.serzhby.tools.plugins.doorman.ui.toolwindow.BoundaryTree

@@ -1,7 +1,7 @@
 package com.github.serzhby.tools.plugins.doorman.services
 
 import com.github.serzhby.tools.plugins.doorman.BoundaryBundle
-import com.github.serzhby.tools.plugins.doorman.model.HostModel
+import com.github.serzhby.tools.plugins.doorman.boundary.HostModel
 import com.github.serzhby.tools.plugins.doorman.ui.toolwindow.BoundaryToolWindowFactory
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType

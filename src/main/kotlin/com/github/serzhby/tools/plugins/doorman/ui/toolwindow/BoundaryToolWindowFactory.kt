@@ -1,10 +1,10 @@
 package com.github.serzhby.tools.plugins.doorman.ui.toolwindow
 
 import com.github.serzhby.tools.plugins.doorman.BoundaryBundle
-import com.github.serzhby.tools.plugins.doorman.model.AuthMethod
-import com.github.serzhby.tools.plugins.doorman.model.BoundaryTarget
-import com.github.serzhby.tools.plugins.doorman.model.HostModel
-import com.github.serzhby.tools.plugins.doorman.model.Session
+import com.github.serzhby.tools.plugins.doorman.boundary.AuthMethod
+import com.github.serzhby.tools.plugins.doorman.boundary.BoundaryTarget
+import com.github.serzhby.tools.plugins.doorman.boundary.HostModel
+import com.github.serzhby.tools.plugins.doorman.boundary.Session
 import com.github.serzhby.tools.plugins.doorman.actions.RefreshItemsAction
 import com.github.serzhby.tools.plugins.doorman.services.BoundaryTargetsLoader
 import com.github.serzhby.tools.plugins.doorman.services.Host

@@ -1,6 +1,6 @@
 package com.github.serzhby.tools.plugins.doorman.services
 
-import com.github.serzhby.tools.plugins.doorman.model.AuthTokenItem
+import com.github.serzhby.tools.plugins.doorman.boundary.AuthTokenItem
 import java.util.concurrent.ConcurrentHashMap
 
 class InMemoryTokenStore : TokenStore {

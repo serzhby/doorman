@@ -1,8 +1,8 @@
 package com.github.serzhby.tools.plugins.doorman.actions
 
 import com.github.serzhby.tools.plugins.doorman.BoundaryBundle
-import com.github.serzhby.tools.plugins.doorman.model.BoundaryTarget
-import com.github.serzhby.tools.plugins.doorman.model.ConnectionResponse
+import com.github.serzhby.tools.plugins.doorman.boundary.BoundaryTarget
+import com.github.serzhby.tools.plugins.doorman.boundary.ConnectionResponse
 import com.github.serzhby.tools.plugins.doorman.services.BoundaryService
 import com.github.serzhby.tools.plugins.doorman.services.Host
 import com.github.serzhby.tools.plugins.doorman.ui.toolwindow.BoundaryTree
@@ -19,7 +19,9 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DataKey
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.EDT
+import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
 import com.intellij.platform.ide.progress.withModalProgress
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,16 +48,20 @@ class CreateDataSourceAction(
       ?: throw IllegalStateException("BoundaryTarget data not found in action event.")
 
     cs.launch {
-      val dataSource = withModalProgress(project, BoundaryBundle.message("dataSourceConnection.dialogTitle", target.name)) {
-        val service = ApplicationManager.getApplication().getService(BoundaryService::class.java)
-        withContext(Dispatchers.IO) {
-          val connectionResponse = service.createConnection(host, target)
-          createOrUpdateDataSource(project, connectionResponse!!, target)
+      try {
+        val dataSource = withModalProgress(project, BoundaryBundle.message("dataSourceConnection.dialogTitle", target.name)) {
+          val service = project.service<BoundaryService>()
+          withContext(Dispatchers.IO) {
+            val connectionResponse = service.createConnection(host, target)
+            createOrUpdateDataSource(project, connectionResponse!!, target)
+          }
         }
-      }
-      withContext(Dispatchers.EDT) {
-        showDataSourceDialogIfPossible(project, dataSource)
-        RefreshItemsAction.trigger(project)
+        withContext(Dispatchers.EDT) {
+          showDataSourceDialogIfPossible(project, dataSource)
+          RefreshItemsAction.trigger(project)
+        }
+      } catch (e: Exception) {
+        showErrorCreatingConnectionDialog(project, e)
       }
     }
   }
@@ -140,6 +146,16 @@ class CreateDataSourceAction(
       dbms.isTransactSql -> "jdbc:sqlserver"
       dbms.isVertica -> "jdbc:vertica"
       else -> "jdbc:${dbms.name.lowercase()}"
+    }
+  }
+
+  private suspend fun showErrorCreatingConnectionDialog(project: Project, e: Exception) {
+    withContext(Dispatchers.EDT) {
+      Messages.showErrorDialog(
+        project,
+        BoundaryBundle.message("dataSourceConnectionErrorDialog.text", e.message ?: ""),
+        BoundaryBundle.message("dataSourceConnectionErrorDialog.title")
+      )
     }
   }
 }

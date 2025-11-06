@@ -3,16 +3,17 @@ package com.github.serzhby.tools.plugins.doorman.services
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.github.serzhby.tools.plugins.doorman.model.AuthMethod
-import com.github.serzhby.tools.plugins.doorman.model.AuthTokenResponse
-import com.github.serzhby.tools.plugins.doorman.model.BoundaryTarget
-import com.github.serzhby.tools.plugins.doorman.model.CloseSessionResult
-import com.github.serzhby.tools.plugins.doorman.model.ConnectionResponse
+import com.github.serzhby.tools.plugins.doorman.boundary.AuthMethod
+import com.github.serzhby.tools.plugins.doorman.boundary.AuthTokenResponse
+import com.github.serzhby.tools.plugins.doorman.boundary.BoundaryTarget
+import com.github.serzhby.tools.plugins.doorman.boundary.CloseSessionResult
+import com.github.serzhby.tools.plugins.doorman.boundary.ConnectionResponse
 import com.github.serzhby.tools.plugins.doorman.model.KeyringType
-import com.github.serzhby.tools.plugins.doorman.model.ListAuthMethodsResult
-import com.github.serzhby.tools.plugins.doorman.model.ListSessionsResult
-import com.github.serzhby.tools.plugins.doorman.model.ListTargetResult
-import com.github.serzhby.tools.plugins.doorman.model.Session
+import com.github.serzhby.tools.plugins.doorman.boundary.ListAuthMethodsResult
+import com.github.serzhby.tools.plugins.doorman.boundary.ListSessionsResult
+import com.github.serzhby.tools.plugins.doorman.boundary.ListTargetResult
+import com.github.serzhby.tools.plugins.doorman.boundary.Session
+import com.github.serzhby.tools.plugins.doorman.boundary.exceptions.UnsupportedAuthMethodException
 import com.intellij.openapi.components.Service
 
 @Service(Service.Level.APP)
@@ -52,7 +53,7 @@ class BoundaryService {
         }
       }
     } else {
-      throw IllegalArgumentException("Unsupported authentication method: ${authMethod.type}. Only 'oidc' is supported.")
+      throw UnsupportedAuthMethodException(authMethod)
     }
   }
 

@@ -1,4 +1,4 @@
-package com.github.serzhby.tools.plugins.doorman.model
+package com.github.serzhby.tools.plugins.doorman.boundary
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
