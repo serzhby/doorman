@@ -1,5 +1,6 @@
 package com.github.serzhby.tools.plugins.doorman.services
 
+import com.intellij.openapi.diagnostic.debug
 import com.intellij.openapi.diagnostic.thisLogger
 import java.io.BufferedReader
 import java.lang.Thread.sleep
@@ -17,6 +18,8 @@ class ExternalCommandExecutor {
     destroyOnTimeout: Boolean,
     predicate: (String) -> Boolean
   ): String {
+    val logger = thisLogger()
+    logger.debug { "Executing command: ${command.joinToString(" ")}, env: $env, timeoutMillis: $timeoutMillis, destroyOnTimeout: $destroyOnTimeout" }
     val process = startProcess(command, env)
     val ready = CompletableFuture<String>()
     thread(isDaemon = true, name = "proc-reader") {
@@ -35,10 +38,13 @@ class ExternalCommandExecutor {
     }
     thread(isDaemon = true, name = "proc-waiter") {
       val finished = process.waitFor(timeoutMillis.toLong(), TimeUnit.MILLISECONDS)
+      if (!finished) {
+        logger.debug { "Command timed out after $timeoutMillis ms: ${command.joinToString(" ")}" }
+      }
       if (!finished && destroyOnTimeout) {
         process.destroy()
         if (!process.waitFor(200, TimeUnit.MILLISECONDS)) {
-          thisLogger().warn("Process did not terminate after timeout, forcefully destroying it: $command")
+          logger.warn("Process did not terminate after timeout, forcefully destroying it: $command")
           process.destroyForcibly()
         }
       }
@@ -47,7 +53,9 @@ class ExternalCommandExecutor {
         ready.complete(process.inputStream.bufferedReader().readText())
       }
     }
-    return ready.get()
+    val output = ready.get()
+    logger.debug { "Command output (${output.length} chars): $output" }
+    return output
   }
 
   private fun startProcess(command: List<String>, env: Map<String, String>): Process {

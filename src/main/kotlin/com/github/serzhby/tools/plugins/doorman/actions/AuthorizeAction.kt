@@ -11,7 +11,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DataKey
 import com.intellij.openapi.application.EDT
 import com.intellij.openapi.components.service
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.platform.ide.progress.withModalProgress
@@ -32,7 +31,7 @@ class AuthorizeAction(
     val project = e.project ?: return
     val authMethod = e.getData(AUTH_METHOD_DATA_KEY) ?: return
     val host = e.getData(HOST_DATA_KEY) ?: return
-    val authResponse = cs.launch {
+    cs.launch {
       try {
         withModalProgress(project, BoundaryBundle.message("authDialog.title", authMethod.type, authMethod.name)) {
           withContext(Dispatchers.IO) {
@@ -44,7 +43,6 @@ class AuthorizeAction(
       }
       refreshItemsList(project)
     }
-    thisLogger().info("Authorization response: $authResponse")
   }
 
   private suspend fun showUnsupportedAuthMethodDialog(authMethod: AuthMethod) {
